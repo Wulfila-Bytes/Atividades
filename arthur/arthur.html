@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Restaurante Sabor & Arte</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(to bottom, #006747 33%, #ffffff 33%, #ce1126 66%);
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #c19a6b;
+            padding-bottom: 20px;
+            background-color: #fff;
+        }
+
+        h1 {
+            color: #8B4513;
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+
+        .subtitulo {
+            font-style: italic;
+            color: #777;
+        }
+
+        /* Imagens no cabeçalho */
+        .header-logo {
+            width: 100px; /* Tamanho do logo */
+            height: auto;
+            margin-left: 10px;
+        }
+
+        .header-bandeira {
+            width: 120px; /* Tamanho da bandeira */
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .categoria {
+            margin: 30px 0;
+        }
+
+        .categoria-titulo {
+            color: #8B4513;
+            border-bottom: 1px dashed #c19a6b;
+            padding-bottom: 5px;
+            font-size: 1.5em;
+        }
+
+        .prato {
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .prato-info {
+            flex: 3;
+        }
+
+        .prato-preco {
+            flex: 1;
+            text-align: right;
+            color: #8B4513;
+            font-weight: bold;
+        }
+
+        .prato-nome {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .prato-descricao {
+            font-style: italic;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .destaque {
+            background-color: #fff4e6;
+            padding: 10px;
+            border-left: 3px solid #8B4513;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #777;
+            font-size: 0.9em;
+            background-color: #fff;
+            padding: 10px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <!-- Bandeira à esquerda -->
+            <img src="./bandeira.jpg" alt="Bandeira do México" class="header-bandeira">
+
+            <!-- Título principal e subtítulo -->
+            <div>
+                <h1>Restaurant Mexican</h1>
+                <p class="subtitulo">Siente el corazón de México en nuestra mesa</p>
+            </div>
+
+            <!-- Logo à direita -->
+            <img src="./logo.jpg" alt="Logo do Restaurante" class="header-logo">
+        </header>
+        
+        <section class="categoria">
+            <h2 class="categoria-titulo">Entradas</h2>
+            
+            <div class="prato">
+                <div class="prato-info">
+                    <div class="prato-nome">Guacamole</div>
+                    <div class="prato-descricao">Aguacate, cebolla, cilantro, jugo de limón, tomate (opcional), chile (opcional)</div>
+                </div>
+                <div class="prato-preco">R$ 25,90</div>
+            </div>
+            
+            <div class="prato">
+                <div class="prato-info">
+                    <div class="prato-nome">Ceviche</div>
+                    <div class="prato-descricao">Pescado o mariscos frescos (atún, camarón, tilapia), jugo de limón, cebolla morada, cilantro, chile serrano o habanero, tomate, pepino (opcional)</div>
+                </div>
+                <div class="prato-preco">R$ 33,50</div>
+            </div>
+            
+        </section>
+        
+        <section class="categoria">
+            <h2 class="categoria-titulo">Pratos Principais</h2>
+            
+            <div class="prato">
+                <div class="prato-info">
+                    <div class="prato-nome">Tacos</div>
+                    <div class="prato-descricao">Tortillas de maíz o harina, carne (carne asada, pastor, carnitas, pollo, pescado), cebolla, cilantro, limón, salsa (roja, verde, o pico de gallo)</div>
+                </div>
+                <div class="prato-preco">R$ 42,90</div>
+            </div>
+            
+            <div class="prato">
+                <div class="prato-info">
+                    <div class="prato-nome">Mole Poblano</div>
+                    <div class="prato-descricao">Chiles secos (ancho, pasilla, mulato, chipotle), chocolate oscuro, almendras, ajonjolí (sésamo), ajo, cebolla, especias como comino, canela y clavo, pollo o pavo</div>
+                </div>
+                <div class="prato-preco">R$ 58,00</div>
+            </div>
+            
+            <div class="prato destaque">
+                <div class="prato-info">
+                    <div class="prato-nome">Carnitas</div>
+                    <div class="prato-descricao">Carne de cerdo (pierna, espaldilla o pancita), manteca de cerdo, ajo, cebolla, laurel, naranja (jugo y cáscara), sal y pimienta</div>
+                </div>
+                <div class="prato-preco">R$ 49,50</div>
+            </div>
+        </section>
+        
+        <section class="categoria">
+            <h2 class="categoria-titulo">Sobremesas</h2>
+            
+            <div class="prato">
+                <div class="prato-info">
+                    <div class="prato-nome">Flan Mexicano</div>
+                    <div class="prato-descricao">Leche condensada, leche evaporada, huevos, azúcar, vainilla, caramelo</div>
+                </div>
+                <div class="prato-preco">R$ 24,90</div>
+            </div>
+            
+            <div class="prato destaque">
+                <div class="prato-info">
+                    <div class="prato-nome">Churros</div>
+                    <div class="prato-descricao">Masa de churro, azúcar, canela, aceite (para fritar), chocolate (para acompañar)</div>
+                </div>
+                <div class="prato-preco">R$ 19,90</div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>10% de taxa de serviço • Aceitamos todos os cartões</p>
+            <p>Rua das Flores, 123 • Tel: (11) 3456-7890</p>
+        </footer>
+    </div>
+</body>
+</html>
