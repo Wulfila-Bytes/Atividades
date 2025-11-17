@@ -1,0 +1,842 @@
+mysql> show tables
+    -> ;
+ERROR 1046 (3D000): No database selected
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> desc database
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| escola             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.05 sec)
+
+mysql> use escola;
+Database changed
+mysql> desc escola
+    -> ;
+ERROR 1146 (42S02): Table 'escola.escola' doesn't exist
+mysql> show table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show table escola;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'escola' at line 1
+mysql> show * from escola;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from escola' at line 1
+mysql> show tables from escola;
++------------------+
+| Tables_in_escola |
++------------------+
+| alunos           |
+| cursos           |
+| matriculas       |
+| professores      |
++------------------+
+4 rows in set (0.01 sec)
+
+mysql> desc alunos;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| matricula | int          | NO   | PRI | NULL    | auto_increment |
+| nome      | varchar(255) | YES  |     | NULL    |                |
+| telefone  | char(11)     | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
+mysql> select * from escola;
+ERROR 1146 (42S02): Table 'escola.escola' doesn't exist
+mysql> select * from alunos;
++-----------+---------+-------------+
+| matricula | nome    | telefone    |
++-----------+---------+-------------+
+|         1 | Maia    | 12345678912 |
+|         2 | Geraldo | 23456789123 |
+|         3 | Bruna   | 34567891234 |
+|         4 | Joana   | 45678912345 |
+|         5 | Vanessa | 56789123456 |
++-----------+---------+-------------+
+5 rows in set (0.02 sec)
+
+mysql> select * from cursos;
++----+--------------+---------------+
+| ID | nome         | carga_horaria |
++----+--------------+---------------+
+|  1 | Licenciatura | 3500 horas    |
+|  2 | Bacharelado  | 3800 horas    |
++----+--------------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> creat table Alunos;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'creat table Alunos' at line 1
+mysql> create table Alunos (id auto_increment not null primary key, nome varchar(255), idade varchar(255));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'auto_increment not null primary key, nome varchar(255), idade varchar(255))' at line 1
+mysql> create table Alunos (
+    -> id int auto_increment not null primary key,
+    -> nome varchar(255),
+    -> idade varchar(255);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+mysql> create table Alunos (
+    -> id int auto_increment not null primary key,
+    -> nome varchar(255),
+    -> idade varchar(255));
+ERROR 1050 (42S01): Table 'alunos' already exists
+mysql> drop alunos;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'alunos' at line 1
+mysql> drop table alunos;
+ERROR 3730 (HY000): Cannot drop table 'alunos' referenced by a foreign key constraint 'matriculas_ibfk_1' on table 'matriculas'.
+mysql> drop table matriculas;
+Query OK, 0 rows affected (0.53 sec)
+
+mysql> drop table alunos;
+Query OK, 0 rows affected (0.52 sec)
+
+mysql> create table Alunos (
+    -> id int auto_increment not null primary key,
+    -> nome varchar(255),
+    -> idade varchar(255));
+Query OK, 0 rows affected (0.36 sec)
+
+.
+.
+.
+
+mysql> drop table cursos;
+Query OK, 0 rows affected (0.26 sec)
+
+mysql> create table cursos (
+    -> id int auto_increment not null primary key,
+    -> nome varchar(255),
+    -> categoria varchar(255));
+Query OK, 0 rows affected (0.59 sec)
+
+.
+.
+.
+
+mysql> insert into alunos (
+    -> nome, idade) values (
+    -> "Maria", "16");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into alunos (
+    -> nome, idade) values (
+    -> "Gilherme", "17");
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into alunos (
+    -> nome, idade) values (
+    -> "Bruna", "18");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into alunos (
+    -> nome, idade) values (
+    -> "Gilherme", "15");
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert into alunos (
+    -> nome, idade) values (
+    -> "Joana", "19");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into cursos (
+    -> nome, categoria) values (
+    -> "Programação Pyhton", "Tecnologia");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into cursos (
+    -> nome, categoria) values (
+    -> "Física quântica", "Física");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into cursos (
+    -> nome, categoria) values (
+    -> "História mundial", "História");
+Query OK, 1 row affected (0.12 sec)
+
+.
+.
+.
+
+mysql> select nome from alunos where idade < 18;
++----------+
+| nome     |
++----------+
+| Maria    |
+| Gilherme |
+| Gilherme |
++----------+
+3 rows in set (0.03 sec)
+
+.
+.
+.
+
+mysql> desc table alunos;
++----+-------------+--------+------------+------+---------------+------+---------+------+------+----------+-------+
+| id | select_type | table  | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra |
++----+-------------+--------+------------+------+---------------+------+---------+------+------+----------+-------+
+|  1 | SIMPLE      | alunos | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    5 |   100.00 | NULL  |
++----+-------------+--------+------------+------+---------------+------+---------+------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> select * from alunos;
++----+----------+-------+-------+
+| id | nome     | idade | email |
++----+----------+-------+-------+
+|  1 | Maria    | 16    | NULL  |
+|  2 | Gilherme | 17    | NULL  |
+|  3 | Bruna    | 18    | NULL  |
+|  4 | Gilherme | 15    | NULL  |
+|  5 | Joana    | 19    | NULL  |
++----+----------+-------+-------+
+5 rows in set (0.00 sec)
+
+.
+.
+.
+
+mysql> update alunos set email = "maria2008@gmail.com" where nome = "Maria";
+Query OK, 1 row affected (0.15 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+.
+.
+.
+
+mysql> create table matriculas (
+    -> id_alunos int,
+    -> id_cursos int,
+    -> foreign key (id_alunos) references alunos(id),
+    -> foreign key (id_cursos) references cursos(id));
+Query OK, 0 rows affected (1.75 sec)
+
+mysql> insert into matriculas (id_alunos, id_cursos) values (
+    -> 1, 1);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into matriculas (id_alunos, id_cursos) values (
+    -> 2, 1);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into matriculas (id_alunos, id_cursos) values (
+    -> 3, 2);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into matriculas (id_alunos, id_cursos) values (
+    -> 4, 2);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into matriculas (id_alunos, id_cursos) values (
+    -> 5, 3);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_escola |
++------------------+
+| alunos           |
+| cursos           |
+| matriculas       |
+| professores      |
++------------------+
+4 rows in set (0.01 sec)
+
+mysql> select * from alunos;
++----+----------+-------+---------------------+
+| id | nome     | idade | email               |
++----+----------+-------+---------------------+
+|  1 | Maria    | 16    | maria2008@gmail.com |
+|  2 | Gilherme | 17    | NULL                |
+|  3 | Bruna    | 18    | NULL                |
+|  4 | Gilherme | 15    | NULL                |
+|  5 | Joana    | 19    | NULL                |
++----+----------+-------+---------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from matriculas;
++-----------+-----------+
+| id_alunos | id_cursos |
++-----------+-----------+
+|         1 |         1 |
+|         2 |         1 |
+|         3 |         2 |
+|         4 |         2 |
+|         5 |         3 |
++-----------+-----------+
+5 rows in set (0.00 sec)
+
+.
+.
+.
+
+mysql> select alunos.id, alunos.nome, alunos.idade from alunos inner join cursos on alunos.id = cursos.id;
++----+----------+-------+
+| id | nome     | idade |
++----+----------+-------+
+|  1 | Maria    | 16    |
+|  2 | Gilherme | 17    |
+|  3 | Bruna    | 18    |
++----+----------+-------+
+3 rows in set (0.00 sec)
+
+.
+.
+.
+
+mysql> select
+    -> a.id, a.nome, c.nome
+    -> from alunos as a
+    -> left join cursos as c
+    -> on a.id = c.id;
++----+----------+----------------------+
+| id | nome     | nome                 |
++----+----------+----------------------+
+|  1 | Maria    | Programação Pyhton   |
+|  2 | Gilherme | Física quântica      |
+|  3 | Bruna    | História mundial     |
+|  4 | Gilherme | NULL                 |
+|  5 | Joana    | NULL                 |
++----+----------+----------------------+
+5 rows in set (0.00 sec)
+
+.
+.
+.
+
+mysql> select count(*) as
+    -> alunos_matriculados
+    -> from (
+    -> select nome from cursos group by nome
+    -> ) as t;
++---------------------+
+| alunos_matriculados |
++---------------------+
+|                   3 |
++---------------------+
+1 row in set (0.13 sec)
+
+.
+.
+.
+
+mysql> select nome,
+    -> count(distinct id) as contagem_de_alunos_ricos
+    -> from cursos
+    -> group by nome
+    -> having count(distinct id) >= 2;
+Empty set (0.12 sec)
+
+.
+.
+.
+
+
+original, uncleaned:
+
+mysql> show tables
+    -> ;
+ERROR 1046 (3D000): No database selected
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> desc database
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| escola             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.05 sec)
+
+mysql> use escola;
+Database changed
+mysql> desc escola
+    -> ;
+ERROR 1146 (42S02): Table 'escola.escola' doesn't exist
+mysql> show table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show table escola;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'escola' at line 1
+mysql> show * from escola;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from escola' at line 1
+mysql> show tables from escola;
++------------------+
+| Tables_in_escola |
++------------------+
+| alunos           |
+| cursos           |
+| matriculas       |
+| professores      |
++------------------+
+4 rows in set (0.01 sec)
+
+mysql> desc alunos;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| matricula | int          | NO   | PRI | NULL    | auto_increment |
+| nome      | varchar(255) | YES  |     | NULL    |                |
+| telefone  | char(11)     | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
+mysql> select * from escola;
+ERROR 1146 (42S02): Table 'escola.escola' doesn't exist
+mysql> select * from alunos;
++-----------+---------+-------------+
+| matricula | nome    | telefone    |
++-----------+---------+-------------+
+|         1 | Maia    | 12345678912 |
+|         2 | Geraldo | 23456789123 |
+|         3 | Bruna   | 34567891234 |
+|         4 | Joana   | 45678912345 |
+|         5 | Vanessa | 56789123456 |
++-----------+---------+-------------+
+5 rows in set (0.02 sec)
+
+mysql> select * from cursos;
++----+--------------+---------------+
+| ID | nome         | carga_horaria |
++----+--------------+---------------+
+|  1 | Licenciatura | 3500 horas    |
+|  2 | Bacharelado  | 3800 horas    |
++----+--------------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> creat table Alunos;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'creat table Alunos' at line 1
+mysql> create table Alunos (id auto_increment not null primary key, nome varchar(255), idade varchar(255));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'auto_increment not null primary key, nome varchar(255), idade varchar(255))' at line 1
+mysql> create table Alunos (
+    -> id int auto_increment not null primary key,
+    -> nome varchar(255),
+    -> idade varchar(255);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+mysql> create table Alunos (
+    -> id int auto_increment not null primary key,
+    -> nome varchar(255),
+    -> idade varchar(255));
+ERROR 1050 (42S01): Table 'alunos' already exists
+mysql> drop alunos;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'alunos' at line 1
+mysql> drop table alunos;
+ERROR 3730 (HY000): Cannot drop table 'alunos' referenced by a foreign key constraint 'matriculas_ibfk_1' on table 'matriculas'.
+mysql> drop table matriculas;
+Query OK, 0 rows affected (0.53 sec)
+
+mysql> drop table alunos;
+Query OK, 0 rows affected (0.52 sec)
+
+mysql> create table Alunos (
+    -> id int auto_increment not null primary key,
+    -> nome varchar(255),
+    -> idade varchar(255));
+Query OK, 0 rows affected (0.36 sec)
+
+mysql> create table cursos (
+    -> id int auto_increment not null primary key,
+    -> nome varchar(255),
+    -> categoria varchar(255));
+ERROR 1050 (42S01): Table 'cursos' already exists
+mysql> create table cursos (
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> drop table cursos;
+Query OK, 0 rows affected (0.26 sec)
+
+mysql> create table cursos (
+    -> id int auto_increment not null primary key,
+    -> nome varchar(255),
+    -> categoria varchar(255));
+Query OK, 0 rows affected (0.59 sec)
+
+mysql> insert into alunos ("Maria", "16");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"Maria", "16")' at line 1
+mysql> insert into alunos (
+    -> "Maria", "16");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"Maria", "16")' at line 2
+mysql> insert into alunos (
+    -> nome, idade) values (
+    -> "Maria", "16");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into alunos (
+    -> nome, idade) values (
+    -> "Gilherme", "17");
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into alunos (
+    -> nome, idade) values (
+    -> "Bruna", "18");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into alunos (
+    -> nome, idade) values (
+    -> "Gilherme", "15");
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert into alunos (
+    -> nome, idade) values (
+    -> "Joana", "19");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into cursos (
+    -> nome, categoria) values (
+    -> "Programação Pyhton", "Tecnologia");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into cursos (
+    -> nome, categoria) values (
+    -> "Física quântica", "Física");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into cursos (
+    -> nome, categoria) values (
+    -> "História mundial", "História");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> alter table add column email (
+    -> varchar(255);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'add column email (
+varchar(255)' at line 1
+mysql> alter table alunos add column email (
+    -> varchar(255);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(
+varchar(255)' at line 1
+mysql> alter table add column email vrchar(255);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'add column email vrchar(255)' at line 1
+mysql> alter table add column email varchar(255);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'add column email varchar(255)' at line 1
+mysql> alter table alunos add column email varchar(255);
+Query OK, 0 rows affected (0.50 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select from alunos where idade <18;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from alunos where idade <18' at line 1
+mysql> select idade from alunos where <18;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '<18' at line 1
+mysql> select idade from alunos where < 18;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '< 18' at line 1
+mysql> select nome from alunos where idade < 18;
++----------+
+| nome     |
++----------+
+| Maria    |
+| Gilherme |
+| Gilherme |
++----------+
+3 rows in set (0.03 sec)
+
+mysql> update table alunos set email = "maria2008@gmail.com";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table alunos set email = "maria2008@gmail.com"' at line 1
+mysql> update table alunos set email = "maria2008@gmail.com" where id = 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table alunos set email = "maria2008@gmail.com" where id = 1' at line 1
+mysql> show * from alunos;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from alunos' at line 1
+mysql> show * from table alunos;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from table alunos' at line 1
+mysql> desc table alunos;
++----+-------------+--------+------------+------+---------------+------+---------+------+------+----------+-------+
+| id | select_type | table  | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra |
++----+-------------+--------+------------+------+---------------+------+---------+------+------+----------+-------+
+|  1 | SIMPLE      | alunos | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    5 |   100.00 | NULL  |
++----+-------------+--------+------------+------+---------------+------+---------+------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> select * from alunos;
++----+----------+-------+-------+
+| id | nome     | idade | email |
++----+----------+-------+-------+
+|  1 | Maria    | 16    | NULL  |
+|  2 | Gilherme | 17    | NULL  |
+|  3 | Bruna    | 18    | NULL  |
+|  4 | Gilherme | 15    | NULL  |
+|  5 | Joana    | 19    | NULL  |
++----+----------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> update table alunos set email = "maria2008@gmail.com" where nome = "Maria";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table alunos set email = "maria2008@gmail.com" where nome = "Maria"' at line 1
+mysql> update alunos set email = "maria2008@gmail.com" where nome = "Maria";
+Query OK, 1 row affected (0.15 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> create table matriculas (
+    -> id_alunos int not null foreign key,
+    -> id_cursos int not null foreign key);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key,
+id_cursos int not null foreign key)' at line 2
+mysql> create table matriculas (
+    -> id_alunos int,
+    -> id_cursos int,
+    -> foreign key (id_alunos) references alunos(id),
+    -> forein key (id_cursos) references cursos(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key (id_cursos) references cursos(id))' at line 5
+mysql> create table matriculas (
+    -> id_alunos int,
+    -> id_cursos int,
+    ->
+    -> foreign key (id_alunos) references alunos(id),
+    -> forein key (id_cursos) references cursos(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key (id_cursos) references cursos(id))' at line 6
+mysql> create table matriculas (
+    -> id_alunos int,
+    -> id_cursos int,
+    -> foreign key (id_alunos) references alunos(id),
+    -> foreign key (id_cursos) references cursos(id));
+Query OK, 0 rows affected (1.75 sec)
+
+mysql> insert into matriculas (id_alunos, id_cursos) values (
+    -> 1, 1);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into matriculas (id_alunos, id_cursos) values (
+    -> 2, 1);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into matriculas (id_alunos, id_cursos) values (
+    -> 3, 2);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into matriculas (id_alunos, id_cursos) values (
+    -> 4, 2);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into matriculas (id_alunos, id_cursos) values (
+    -> 5, 3);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_escola |
++------------------+
+| alunos           |
+| cursos           |
+| matriculas       |
+| professores      |
++------------------+
+4 rows in set (0.01 sec)
+
+mysql> select * from alunos;
++----+----------+-------+---------------------+
+| id | nome     | idade | email               |
++----+----------+-------+---------------------+
+|  1 | Maria    | 16    | maria2008@gmail.com |
+|  2 | Gilherme | 17    | NULL                |
+|  3 | Bruna    | 18    | NULL                |
+|  4 | Gilherme | 15    | NULL                |
+|  5 | Joana    | 19    | NULL                |
++----+----------+-------+---------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from matriculas;
++-----------+-----------+
+| id_alunos | id_cursos |
++-----------+-----------+
+|         1 |         1 |
+|         2 |         1 |
+|         3 |         2 |
+|         4 |         2 |
+|         5 |         3 |
++-----------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select id from alunos inner join cursos on id_alunos = id_cursos;
+ERROR 1052 (23000): Column 'id' in field list is ambiguous
+mysql> select id from alunos inner join cursos on alunos.id_alunos = cursos.id_cursos;
+ERROR 1052 (23000): Column 'id' in field list is ambiguous
+mysql> select nome from alunos inner join cursos on id_alunos = id_cursos;
+ERROR 1052 (23000): Column 'nome' in field list is ambiguous
+mysql> select id, nome, idade from alunos inner join cursos on id_alunos = id_cursos;
+ERROR 1052 (23000): Column 'id' in field list is ambiguous
+mysql> select alunos.id, alunos.nome, alunos.idade from alunos inner join cursos on id_alunos = id_cursos;
+ERROR 1054 (42S22): Unknown column 'id_alunos' in 'on clause'
+mysql> select alunos.id, alunos.nome, alunos.idade from alunos inner join cursos on matriculas.id_alunos = matriculas.id_cursos;
+ERROR 1054 (42S22): Unknown column 'matriculas.id_alunos' in 'on clause'
+mysql> select alunos.id, alunos.nome, alunos.idade from alunos inner join cursos on alunos.id_alunos = cursos.id_cursos;
+ERROR 1054 (42S22): Unknown column 'alunos.id_alunos' in 'on clause'
+mysql> select alunos.id, alunos.nome, alunos.idade from alunos inner join cursos on alunos.id = cursos.id;
++----+----------+-------+
+| id | nome     | idade |
++----+----------+-------+
+|  1 | Maria    | 16    |
+|  2 | Gilherme | 17    |
+|  3 | Bruna    | 18    |
++----+----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select
+    -> c.nome,
+    -> o.id,
+    -> o.idade
+    -> from
+    -> alunosas
+    -> ;
+ERROR 1146 (42S02): Table 'escola.alunosas' doesn't exist
+mysql> select
+    -> c.nome,
+    -> o.id,
+    -> o.idade
+    -> from
+    -> alunos as c
+    -> left join cursos as o on c.nome = o.nome;
+ERROR 1054 (42S22): Unknown column 'o.idade' in 'field list'
+mysql> select
+    -> c.nome,
+    -> o.id,
+    -> from
+    -> alunos as c
+    -> left join cursos as o on c.nome = o.nome;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from
+alunos as c
+left join cursos as o on c.nome = o.nome' at line 4
+mysql> select nome from alunos left join cursos alunos.nome = cursos.nome;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.nome = cursos.nome' at line 1
+mysql> select nome from alunos left join cursos nome = nome;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= nome' at line 1
+mysql> select
+    -> a.id, a.nome, c.nome
+    -> from alunos as a
+    -> left join cursos as c
+    -> on a.id = c.id;
++----+----------+----------------------+
+| id | nome     | nome                 |
++----+----------+----------------------+
+|  1 | Maria    | Programação Pyhton   |
+|  2 | Gilherme | Física quântica      |
+|  3 | Bruna    | História mundial     |
+|  4 | Gilherme | NULL                 |
+|  5 | Joana    | NULL                 |
++----+----------+----------------------+
+5 rows in set (0.00 sec)
+
+mysql> select untoc
+    ->
+    -> ;
+ERROR 1054 (42S22): Unknown column 'untoc' in 'field list'
+mysql> select count(dinstinct a.id)
+    -> as alunos_matriculados
+    -> from cursos c;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'a.id)
+as alunos_matriculados
+from cursos c' at line 1
+mysql> select count(dinstinct a.nome)
+    -> as alunos_matriculados
+    -> from cursos c;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'a.nome)
+as alunos_matriculados
+from cursos c' at line 1
+mysql> select count(dinstinct alunos.nome)
+    -> as alunos_matriculados
+    -> from cursos;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'alunos.nome)
+as alunos_matriculados
+from cursos' at line 1
+mysql> select count(dinstinct
+    -> c.nome) as
+    -> as alunos_matriculados
+    -> from cursos c;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'c.nome) as
+as alunos_matriculados
+from cursos c' at line 2
+mysql> select count(*) as
+    -> alunos_matriculados
+    -> from (
+    -> select nome from cursos group by nome
+    -> ) as t;
++---------------------+
+| alunos_matriculados |
++---------------------+
+|                   3 |
++---------------------+
+1 row in set (0.13 sec)
+
+mysql> select cursos,
+    -> count(distinct nome) as contagem_de_alunos_ricos
+    -> from cursos
+    -> group by nome
+    -> having count(distinct nome) >= 2;
+ERROR 1054 (42S22): Unknown column 'cursos' in 'field list'
+mysql> select cursos,
+    -> count(distinct nome) as contagem_de_alunos_ricos
+    -> from cursos
+    -> group by nome
+    -> having count(distinct nome) >= 2;
+ERROR 1054 (42S22): Unknown column 'cursos' in 'field list'
+mysql> select nome,
+    -> count(distinct id) as contagem_de_alunos_ricos
+    -> from cursos
+    -> group by nome
+    -> having count(distinct id) >= 2;
+Empty set (0.12 sec)
+
+mysql> sqlcmd -S
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sqlcmd -S' at line 1
+mysql> show variable where variable_name = "hostname";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'variable where variable_name = "hostname"' at line 1
+mysql> SHOW VARIABLES WHERE Variable_name = 'hostname';
++---------------+------------+
+| Variable_name | Value      |
++---------------+------------+
+| hostname      | M89644062X |
++---------------+------------+
+1 row in set (0.14 sec)
+
+mysql> sqlcmd -S M89644062X -D Escola -E -Q "SELECT * FROM alunos, cursos, matriculas" -o C:\Path\To\OutputFile.txt
+ERROR:
+Unknown command '\P'.
+No previous outfile available, you must give a filename!
+    -> sqlcmd -S M89644062X -D Escola -E -Q "SELECT * FROM alunos, cursos, matriculas" -o C:\Users\Educação\Desktop.txt
+ERROR:
+Unknown command '\U'.
+ERROR:
+Unknown command '\E'.
+ERROR:
+Unknown command '\D'.
+    -> sqlcmd -S M89644062X -D Escola -E -Q "SELECT * FROM alunos, cursos, matriculas" -o .txt
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sqlcmd -S M89644062X -D Escola -E -Q "SELECT * FROM alunos, cursos, matriculas" ' at line 1
+mysql> -S M89644062X -D Escola -E -Q "SELECT * FROM alunos, cursos, matriculas" -o C:\Users\Educação\Desktop.txt
+ERROR:
+Unknown command '\U'.
+ERROR:
+Unknown command '\E'.
+ERROR:
+Unknown command '\D'.
+    -> -S M89644062X -D Escola -E -Q "SELECT * FROM alunos, cursos, matriculas" -oC:\Users\Educação\Desktop.txt
+ERROR:
+Unknown command '\U'.
+ERROR:
+Unknown command '\E'.
+ERROR:
+Unknown command '\D'.
+    -> -S M89644062X -D Escola -E -Q "SELECT * FROM alunos, cursos, matriculas" -o C:\Users\Educação\Desktop.txt;
+ERROR:
+Unknown command '\U'.
+ERROR:
+Unknown command '\E'.
+ERROR:
+Unknown command '\D'.
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-S M89644062X -D Escola -E -Q "SELECT * FROM alunos, cursos, matriculas" -o C:\U' at line 1
+mysql> sqlcmd -S M89644062X -D Escola -E -Q "SELECT * FROM alunos, cursos, matriculas" -o C:\Users\Educação\Desktop.txt;
+ERROR:
+Unknown command '\U'.
+ERROR:
+Unknown command '\E'.
+ERROR:
+Unknown command '\D'.
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sqlcmd -S M89644062X -D Escola -E -Q "SELECT * FROM alunos, cursos, matriculas" ' at line 1
+mysql> sqlcmd -S M89644062X -D Escola -E -Q "SELECT * FROM alunos, cursos, matriculas" -o C:\Users\Educação\Desktop.txt;
